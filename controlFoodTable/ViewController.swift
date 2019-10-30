@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let foodName = foodData![indexPath.row].name
-        let alertController = UIAlertController(title: "Food Selected", message: "You have selected \(foodName)", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Food Selected", message: "You have selected \(foodName)", preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         let printAction = UIAlertAction(title: "Print", style: .default) { (action) in
             print("Selected food is \(foodName)")
