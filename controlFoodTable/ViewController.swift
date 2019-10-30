@@ -12,6 +12,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var foods:[String]?
     var calories:[Int]?
+    //its use for tuple
+    var foodData:[(name:String,calory:Int)]?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,6 +24,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         foods = ["Apple","Banana","Burger","Fries","Orange","Pizza"]
         calories = [50 , 60, 900, 600, 30, 700]
+        foodData = [("Apple",50),("Banana",60),("Burger",900),("Fries",600),("Orange",30),("Pizza",700)]
+        
         tableView.register(foodTableViewCell.self, forCellReuseIdentifier: "food cell")
     }
     
@@ -37,13 +41,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        cell.imageView?.image = UIImage(named: foodName)
 //        cell.detailTextLabel?.text = "calories: \(calories![indexPath.row])"
 //        return cell
-        let foodName = foods![indexPath.row]
-        let foodCalory = calories![indexPath.row]
+        let foodName = foodData![indexPath.row].name
+        let foodCalory = foodData![indexPath.row].calory
         // as use for unwrapping
         let cell = tableView.dequeueReusableCell(withIdentifier: "food cell") as! foodTableViewCell
         cell.setName(name: foodName, calories: foodCalory, image: foodName)
         return cell
         
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let foodName = foodData![indexPath.row].name
+        let alertController = UIAlertController(title: "Food Selected", message: "You have selected \(foodName)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        let printAction = UIAlertAction(title: "Print", style: .default) { (action) in
+            print("Selected food is \(foodName)")
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(printAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
